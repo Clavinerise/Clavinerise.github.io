@@ -1,2 +1,2 @@
-# My Website
-View it [here](http://jasminechan.xyz).
+# Personal Website
+## View it at https://jasminechan.xyz.
