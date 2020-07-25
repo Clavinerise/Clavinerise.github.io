@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="ie-edge">
+        <link rel='icon' href='../static/square.png' type='image/x-icon'/>
+        <title>Jasmine Chan</title>
+        <meta name="description" content="An experience of sky color gradients through CSS gradients.">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light+Two&display=swap');
+        </style>
+        <link href="css/about.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <div class="main-body" id="gradient">
+          <h1 class="text-body" id="first">Stop and scroll through the colors for a moment...</h1>
+          <!-- <h3 class="text-body">Hey</h3> -->
+          <h2 class="text-body last">
+            I hope you feel a whole lot better now that you're here.<br /> 
+            It takes a while, but I hope it was worth it.
+          </h2>
+          <button id="scrollbtn"><i class="arrow down"></i></button>
+        </div>
+    </body>
+    <script>
+      let height, scrollBtn;
+
+      let firstText = document.getElementById("first");
+
+      function reset() {
+        height = window.innerHeight * 4; // total height of gradient is 500vh. At 400vh, we want the color of the top element to return to full opacity
+        scrollBtn = document.getElementById("scrollbtn");
+        scrollBtn.style["left"] = `${window.innerWidth / 2 - 25}px`;
+      }
+
+      function scrollFunction() {
+        let scrollToPos = height;
+        if(pageYOffset >= height) {
+          scrollToPos = 0;
+        }
+        // window.scrollTo(0, height);
+        window.scrollTo({
+          top: scrollToPos,
+          behavior: 'smooth',
+          transitionDuration: 'all 20s' 
+        })
+      }
+
+      reset();
+      scrollBtn.addEventListener("click", scrollFunction);
+
+      window.addEventListener("resize", () => {
+        console.log("asd");
+        reset();
+      });
+
+      document.addEventListener("scroll", () => {
+        let offtop = firstText.offsetTop;
+        if(offtop > 150 && offtop < height) {
+          firstText.style.opacity = "80%";
+          scrollBtn.style["top"] = "";
+          scrollBtn.style["bottom"] = "30px";
+          scrollBtn.getElementsByTagName("i")[0].className = "arrow down";
+        } else if(offtop > height) {
+          scrollBtn.style["top"] = "25px";
+          scrollBtn.getElementsByTagName("i")[0].className = "arrow up";
+          firstText.style.opacity = "100%";
+        } else {
+          scrollBtn.style["bottom"] = "30px";
+          firstText.style.opacity = "100%";
+        }
+      });
+    </script>
+</html>
